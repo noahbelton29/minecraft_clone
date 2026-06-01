@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 4.2)
 project(minecraft_clone)
 include(FetchContent)
 
+set(CMAKE_CXX_STANDARD 20)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "")
+set(GLFW_INSTALL OFF CACHE BOOL "")
 FetchContent_Declare(
         glfw
         GIT_REPOSITORY https://github.com/glfw/glfw.git
@@ -9,12 +12,8 @@ FetchContent_Declare(
         GIT_SHALLOW true
 )
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL  "")
-set(GLFW_INSTALL OFF CACHE BOOL  "")
-
 FetchContent_MakeAvailable(glfw)
 
-set(CMAKE_CXX_STANDARD 20)
-
-add_executable(minecraft_clone main.cpp)
+add_executable(minecraft_clone main.cpp external/glad/src/glad.c)
+include_directories( SYSTEM "external/glad/include" )
 target_link_libraries(minecraft_clone glfw)
